@@ -35,13 +35,13 @@ class TimeResponseTest {
     @Test
     void getMethod() {
         //TODO#5 getMethod()를 호출 후 time과 일치하는지 검증하세요
-
+        Assertions.assertEquals(response.getMethod(), "time");
     }
 
     @Test
     void validate(){
         //TODO#6 response.validate()를 검증하세요
-
+        Assertions.assertTrue(response.validate("time"));
     }
 
     @Test
@@ -58,13 +58,33 @@ class TimeResponseTest {
     @DisplayName("pattern : yyyy-MM-dd")
     void execute2() {
         //TODO#7 execute1() 테스트를 기반으로 "yyyy-MM-dd" 검증하는 코드를 작성하세요
-
+        String pattern = "yyyy-MM-dd";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+        String actual = LocalDateTime.now().format(dateTimeFormatter);
+        log.debug("pattern:{}, actual:{}",pattern,actual);
+        Assertions.assertEquals(actual, response.execute(pattern));
     }
 
     @Test
     @DisplayName("pattern : yyyy-MM-dd HH:mm")
     void execute3() {
         //TODO#8 execute1() 테스트를 기반으로 "yyyy-MM-dd HH:mm" 검증하는 코드를 작성하세요.
-
+        String pattern = "yyyy-MM-dd HH:mm";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+        String actual = LocalDateTime.now().format(dateTimeFormatter);
+        log.debug("pattern:{}, actual:{}",pattern,actual);
+        Assertions.assertEquals(actual, response.execute(pattern));
     }
+
+    @Test
+    @DisplayName("잘못된 입력 했을 때 디폴트로 나올까?")
+    void execute4() {
+        String pattern = "yyyy-MM-dd HH:mm:ss"; // <- default
+        String wrong = "wrong";
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+        String actual = LocalDateTime.now().format(dateTimeFormatter);
+        log.debug("pattern:{}, actual:{}",pattern,actual);
+        Assertions.assertEquals(actual, response.execute(wrong));
+    }
+
 }
