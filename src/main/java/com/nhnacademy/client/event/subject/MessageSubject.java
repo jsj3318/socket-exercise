@@ -23,19 +23,19 @@ public class MessageSubject implements Subject {
 
     public MessageSubject() {
         //TODO#1-1 Observer를 등록한 thread list를 생성 합니다. thread safety 해야 합니다.
-        observers = null;
+        observers = Collections.synchronizedList(new ArrayList<>());
     }
 
     @Override
     public void register(EventType eventType, Observer observer) {
         //TODO#1-2 observers에 observer를 등록 합니다.
-
+        observers.add(observer);
     }
 
     @Override
     public void remove(EventType eventType, Observer observer) {
         //TODO#1-3 observers 에서 observer를 삭제 합니다.
-
+        observers.remove(observer);
     }
 
     @Override
@@ -46,7 +46,9 @@ public class MessageSubject implements Subject {
            - observer.updateMessage(message)를 호출 합니다.
         */
         for(Observer observer : observers){
-
+            if(observer.validate(eventType)){
+                observer.updateMessage(message);
+            }
         }
     }
 }
