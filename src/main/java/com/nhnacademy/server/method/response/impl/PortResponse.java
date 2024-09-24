@@ -31,7 +31,7 @@ public class PortResponse implements Response {
 
     @Override
     public String execute(String value) {
-        /* TODO#1 OS로부터 오픈되어 있는 Prot를 조회후 반환 합니다.
+        /* TODO#1 OS로부터 오픈되어 있는 Port를 조회후 반환 합니다.
          - value(port) 에 값이 존재 하지 않는다면 열려있는 모든 port를 반환 합니다.
          - value(port) 값이 존재 한다면 해당 port에 해당되는 값을 반환 합니다.
          - 다음과 같은 형식으로 반환 됩니다.
@@ -61,6 +61,39 @@ public class PortResponse implements Response {
 
         StringBuilder sb = new StringBuilder();
 
+        Process process = null;
+        try {
+            process = Runtime.getRuntime().exec("lsof -n -i");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String str = null;
+        try {
+            bufferedReader.readLine();
+            while ((str = bufferedReader.readLine()) != null){
+                String[] strs = str.split(" +");
+                String protocal = strs[7];
+                String ip = strs[8];
+
+                if(value.isBlank()){
+                    //ip ㅇㅣㄴ자 없음
+                    // 모두 출력
+                    sb.append(protocal + " " + ip + "\n");
+                }
+                else{
+                    //Ip 인자 있음
+                    if(ip.charAt(0) == '*' || ip.contains(value)){
+                        sb.append(protocal + " " + ip + "\n");
+                    }
+                }
+
+            }
+
+        }catch(IOException e){
+            throw new RuntimeException(e);
+        }
         return sb.toString();
     }
 }

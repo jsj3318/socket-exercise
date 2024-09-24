@@ -83,6 +83,8 @@ public class MessageClientForm {
         messageArea.setRows(50);
         messageArea.setColumns(100);
 
+        messageArea.setBackground(Color.YELLOW);
+
         inputField.setColumns(100);
 
         sendButton.setText("Send");
@@ -90,6 +92,8 @@ public class MessageClientForm {
         panel.setLayout(new BorderLayout());
         panel.add(inputField, BorderLayout.CENTER);
         panel.add(sendButton, BorderLayout.EAST);
+
+        scrollPane.setBackground(Color.MAGENTA);
 
         frame.setTitle("Message Client");
         frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
@@ -103,6 +107,7 @@ public class MessageClientForm {
         Dimension frameSize = frame.getSize();
         // 프레임을 화면 가운데로 이동
         frame.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+        frame.setBackground(Color.BLUE);
         frame.setVisible(true);
     }
 
