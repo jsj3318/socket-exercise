@@ -60,7 +60,7 @@ public class WhisperResponse implements Response {
 
         //TODO#2-4 value 가 marco hello 라면 marco아이디를 사용하는 cleint에게 hello message를 응답합니다.
         try {
-            PrintWriter out = new PrintWriter(MessageServer.getClientSocket(targetId).getOutputStream());
+            PrintWriter out = new PrintWriter(MessageServer.getClientSocket(targetId).getOutputStream(), true);
             out.println(message);
         } catch (IOException e) {
             throw new RuntimeException(e);

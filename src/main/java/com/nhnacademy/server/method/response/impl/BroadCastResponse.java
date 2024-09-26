@@ -45,7 +45,7 @@ public class BroadCastResponse implements Response {
             try {
                 log.debug("id:{},{}",id,client);
                 PrintWriter out = new PrintWriter(client.getOutputStream(),true);
-                out.println(value);
+                out.println("<" + Session.getCurrentId() + "> : " + value);
                 sendCount++;
             } catch (IOException e) {
                 log.debug("broadcast-error:{}",e.getMessage(),e);

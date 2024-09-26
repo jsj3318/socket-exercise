@@ -31,7 +31,8 @@ import java.util.Objects;
 
 @Slf4j
 public class MessageClient implements Runnable {
-    private final static String DEFAULT_SERVER_ADDRESS = "localhost";
+    //private final static String DEFAULT_SERVER_ADDRESS = "localhost";
+    private final static String DEFAULT_SERVER_ADDRESS = "192.168.0.188";
     private final static int DEFAULT_PORT = 8888;
 
     private final String serverAddress;

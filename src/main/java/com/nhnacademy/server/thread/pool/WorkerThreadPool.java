@@ -17,7 +17,7 @@ import java.util.Objects;
 public class WorkerThreadPool {
     private final int poolSize;
 
-    private final static int DEFAULT_POOL_SIZE=5;
+    private final static int DEFAULT_POOL_SIZE=10;
 
     private final Thread[] workerThreads;
     private final Runnable runnable;
